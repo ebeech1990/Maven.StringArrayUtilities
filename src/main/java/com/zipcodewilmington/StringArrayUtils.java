@@ -1,6 +1,9 @@
 package com.zipcodewilmington;
 
 
+import com.sun.tools.javac.util.ArrayUtils;
+
+import java.lang.reflect.Array;
 import java.util.Collections;
 import java.util.List;
 import java.util.Arrays;
@@ -80,17 +83,14 @@ public class StringArrayUtils {
      * @return true if the order of the array is the same backwards and forwards
      */ // TODO
     public static boolean isPalindromic(String[] array) {
-        boolean result = false;
-        List<String> revList = Arrays.asList(array);
-        Collections.reverse(revList);
-        String[] newArr = new String[array.length];
-        newArr = (String[]) revList.toArray();
-        for(int i = 0; i < array.length; i++) {
-            if(array[i] == newArr[i]) {
-                result = true;
+//
+        for(int i = 0; i <= array.length/2 && array.length !=0; i++) {
+            if(array[i] != array[array.length-i-1]){
+                break;
             }
+            return true;
         }
-        return result;
+        return false;
     }
 
     /**
@@ -118,7 +118,16 @@ public class StringArrayUtils {
      * @return number of occurrences the specified `value` has occurred
      */ // TODO
     public static int getNumberOfOccurrences(String[] array, String value) {
-        return 0;
+        int counter = 0;
+
+        for(String s : array) {
+            if(s.contains(value)) {
+                counter++;
+            }
+        }
+
+
+        return counter;
     }
 
     /**
@@ -127,7 +136,35 @@ public class StringArrayUtils {
      * @return array with identical contents excluding values of `value`
      */ // TODO
     public static String[] removeValue(String[] array, String valueToRemove) {
-        return null;
+        valueToRemove = valueToRemove.toLowerCase();
+        int counter = 0;
+
+        for(int i  = 0; i < array.length; i++) {
+            array[i] = array[i].toLowerCase();
+
+        }
+        for(String s : array) {
+            if(s.contains(valueToRemove)) {
+                counter++;
+            }
+
+        }
+
+        String[] newArr = new String[array.length - counter];
+
+        for (int i = 0, k = 0; i < array.length; i++) {
+
+            if (array[i].equals(valueToRemove)) {
+                continue;
+            }
+
+            newArr[k++] = array[i];
+        }
+
+//
+        return newArr;
+
+
     }
 
     /**
@@ -135,6 +172,24 @@ public class StringArrayUtils {
      * @return array of Strings with consecutive duplicates removes
      */ // TODO
     public static String[] removeConsecutiveDuplicates(String[] array) {
+        int counter = 0;
+
+        for(int i  = 0; i < array.length; i++) {
+            array[i] = array[i].toLowerCase();
+
+        }
+
+
+        String[] newArr = new String[array.length - counter];
+
+        for (int i = 0, k = 0; i < array.length; i++) {
+
+            if (array[i].equals("valueToRemove")) {
+                continue;
+            }
+
+            newArr[k++] = array[i];
+        }
         return null;
     }
 

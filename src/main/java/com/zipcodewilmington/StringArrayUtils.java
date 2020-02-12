@@ -1,5 +1,10 @@
 package com.zipcodewilmington;
 
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Arrays;
+
 /**
  * Created by leon on 1/29/18.
  */
@@ -9,7 +14,9 @@ public class StringArrayUtils {
      * @return first element of specified array
      */ // TODO
     public static String getFirstElement(String[] array) {
-        return array[0];
+
+        String firstEl = array[0];
+        return firstEl;
     }
 
     /**
@@ -17,7 +24,9 @@ public class StringArrayUtils {
      * @return second element in specified array
      */
     public static String getSecondElement(String[] array) {
-        return array[1];
+
+        String secondEl = array[1];
+        return secondEl;
     }
 
     /**
@@ -25,7 +34,9 @@ public class StringArrayUtils {
      * @return last element in specified array
      */ // TODO
     public static String getLastElement(String[] array) {
-        return null;
+
+        String lastEl = array[array.length-1];
+        return lastEl;
     }
 
     /**
@@ -33,7 +44,9 @@ public class StringArrayUtils {
      * @return second to last element in specified array
      */ // TODO
     public static String getSecondToLastElement(String[] array) {
-        return null;
+
+        String secToLastEl = array[array.length-2];
+        return secToLastEl;
     }
 
     /**
@@ -42,7 +55,13 @@ public class StringArrayUtils {
      * @return true if the array contains the specified `value`
      */ // TODO
     public static boolean contains(String[] array, String value) {
-        return false;
+        boolean result = false;
+        for(String s : array) {
+            if(s.equals(value)) {
+                result = true;
+            }
+        }
+        return result;
     }
 
     /**
@@ -50,7 +69,10 @@ public class StringArrayUtils {
      * @return an array with identical contents in reverse order
      */ // TODO
     public static String[] reverse(String[] array) {
-        return null;
+       List<String> revList = Arrays.asList(array);
+       Collections.reverse(revList);
+       array = (String[]) revList.toArray();
+       return array;
     }
 
     /**
@@ -58,7 +80,17 @@ public class StringArrayUtils {
      * @return true if the order of the array is the same backwards and forwards
      */ // TODO
     public static boolean isPalindromic(String[] array) {
-        return false;
+        boolean result = false;
+        List<String> revList = Arrays.asList(array);
+        Collections.reverse(revList);
+        String[] newArr = new String[array.length];
+        newArr = (String[]) revList.toArray();
+        for(int i = 0; i < array.length; i++) {
+            if(array[i] == newArr[i]) {
+                result = true;
+            }
+        }
+        return result;
     }
 
     /**
@@ -66,7 +98,18 @@ public class StringArrayUtils {
      * @return true if each letter in the alphabet has been used in the array
      */ // TODO
     public static boolean isPangramic(String[] array) {
-        return false;
+        boolean result = true;
+        int zCount = 0;
+        for(int i  = 0; i < array.length; i++) {
+            if(array[i].contains("z") || array[i].contains("Z")) {
+                zCount++;
+            }
+
+        }
+        if(zCount == 0) {
+            result = false;
+        }
+        return result;
     }
 
     /**

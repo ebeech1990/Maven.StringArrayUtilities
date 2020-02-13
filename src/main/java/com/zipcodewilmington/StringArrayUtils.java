@@ -72,10 +72,19 @@ public class StringArrayUtils {
      * @return an array with identical contents in reverse order
      */ // TODO
     public static String[] reverse(String[] array) {
-       List<String> revList = Arrays.asList(array);
-       Collections.reverse(revList);
-       array = (String[]) revList.toArray();
-       return array;
+        String[] reverse = new String[array.length];
+
+        int count = 0;
+
+        for(int i = array.length -1; i >= 0; i--){
+            String temp = array[i];
+            reverse[count] = temp;
+            count ++;
+        }
+        return reverse;
+
+
+
     }
 
     /**
@@ -136,33 +145,26 @@ public class StringArrayUtils {
      * @return array with identical contents excluding values of `value`
      */ // TODO
     public static String[] removeValue(String[] array, String valueToRemove) {
-        valueToRemove = valueToRemove.toLowerCase();
-        int counter = 0;
 
-        for(int i  = 0; i < array.length; i++) {
-            array[i] = array[i].toLowerCase();
 
-        }
-        for(String s : array) {
-            if(s.contains(valueToRemove)) {
-                counter++;
+        int arrLen = array.length -1;
+        String[] newArray = new String[arrLen];
+
+        int current = 0;
+
+        for(int i = 0; i < array.length; i++){
+            if(array[i] == valueToRemove){
+
             }
-
-        }
-
-        String[] newArr = new String[array.length - counter];
-
-        for (int i = 0, k = 0; i < array.length; i++) {
-
-            if (array[i].equals(valueToRemove)) {
-                continue;
+            else{
+                newArray[current] = array[i];
+                current++;
             }
-
-            newArr[k++] = array[i];
         }
+
+        return newArray;
 
 //
-        return newArr;
 
 
     }
@@ -172,25 +174,37 @@ public class StringArrayUtils {
      * @return array of Strings with consecutive duplicates removes
      */ // TODO
     public static String[] removeConsecutiveDuplicates(String[] array) {
+        String placeHolder = "qwerty";
+        String[] dummy = new String[array.length];
+        dummy[0] = array[0];
+        int foundGroups = 1;
+
+        for (int i = 1; i <= array.length -1; i++){
+
+            String actual = array[i];
+            if(array[i].equals(array[i-1])){
+                dummy[i] = placeHolder;
+            }
+            else{
+                foundGroups++;
+                dummy[i] = actual;
+            }
+        }
+        String[] result = new String[foundGroups];
         int counter = 0;
 
-        for(int i  = 0; i < array.length; i++) {
-            array[i] = array[i].toLowerCase();
+        for(int x = 0; x <= array.length -1; x++) {
+            if(dummy[x].equals(placeHolder)){
 
-        }
-
-
-        String[] newArr = new String[array.length - counter];
-
-        for (int i = 0, k = 0; i < array.length; i++) {
-
-            if (array[i].equals("valueToRemove")) {
-                continue;
             }
-
-            newArr[k++] = array[i];
+            else if(!dummy[x].equals(placeHolder)){
+                result[counter] = dummy[x];
+                counter++;
+            }
         }
-        return null;
+        return result;
+
+
     }
 
     /**
@@ -198,7 +212,53 @@ public class StringArrayUtils {
      * @return array of Strings with each consecutive duplicate occurrence concatenated as a single string in an array of Strings
      */ // TODO
     public static String[] packConsecutiveDuplicates(String[] array) {
-        return null;
+        String placeHolder = "qwerty";
+        String[] dummy = new String[array.length];
+        int foundGroups = 0;
+
+        for (int i = 0; i <= array.length - 1; i++) {
+
+            String actual = array[i];
+            if (i == 0) {
+                dummy[i] = array[i];
+                foundGroups++;
+            }
+            else if (array[i].equals(array[i - 1])) {
+                dummy[i] = placeHolder;
+            }
+            else {
+                dummy[i] = actual;
+                foundGroups++;
+            }
+        }
+
+        String[] result = new String[foundGroups];
+        boolean isFirstLoop = true;
+        int counter = 0;
+
+        String current = "";
+
+        for (int i = 0; i <= array.length - 1; i++) {
+
+            if (isFirstLoop) {
+                result[0] = dummy[0];
+                isFirstLoop = false;
+                current = result[0];
+
+            }
+            else if (dummy[i].equals(placeHolder)) {
+                result[counter] += current;
+
+            }
+            else if (!dummy[i].equals(placeHolder)) {
+                counter++;
+                result[counter] = dummy[i];
+                current = dummy[i];
+            }
+
+
+        }
+        return result;
     }
 
 
